@@ -1,7 +1,7 @@
 -- Q1
 SELECT *
 FROM employees
-WHERE department_id &lt;&gt; 100;
+WHERE department_id <> 100;
 -- Q2
 SELECT *
 FROM employees
@@ -9,11 +9,11 @@ WHERE salary IN (10000, 12000, 15000);
 -- Q3
 SELECT first_name, salary
 FROM employees
-WHERE salary &lt;= 25000;
+WHERE salary <= 25000;
 -- Q4
 SELECT *
 FROM employees
-WHERE department_id &lt;&gt; 60;
+WHERE department_id <> 60;
 -- Q5
 SELECT *
 FROM employees
@@ -24,7 +24,7 @@ FROM departments;
 -- Q7
 SELECT *
 FROM employees
-WHERE first_name = &#39;Steven&#39;;
+WHERE first_name = 'Steven';
 -- Q8
 SELECT *
 FROM employees
@@ -33,8 +33,7 @@ AND department_id = 80;
 -- Q9
 SELECT *
 FROM employees
-WHERE salary &lt; ANY (SELECT salary
-
+WHERE salary < ANY (SELECT salary
 FROM employees
 WHERE department_id = 100);
 -- Q10
@@ -49,7 +48,7 @@ HAVING COUNT(*) = 1
 -- Q11
 SELECT *
 FROM employees
-WHERE hire_date BETWEEN DATE &#39;2005-01-01&#39; AND DATE &#39;2006-12-31&#39;;
+WHERE hire_date BETWEEN DATE '2005-01-01' AND DATE '2006-12-31';
 -- Q12
 SELECT *
 FROM employees
@@ -57,13 +56,13 @@ WHERE manager_id IS NULL;
 -- Q13
 SELECT *
 FROM employees
-WHERE salary &lt; ALL (SELECT salary
+WHERE salary < ALL (SELECT salary
 FROM employees
-WHERE salary &gt; 8000);
+WHERE salary > 8000);
 -- Q14
 SELECT *
 FROM employees
-WHERE salary &gt; ANY (SELECT salary
+WHERE salary > ANY (SELECT salary
 FROM employees
 WHERE department_id = 90);
 -- Q15
@@ -87,16 +86,16 @@ WHERE salary NOT BETWEEN 5000 AND 15000;
 SELECT *
 FROM employees
 WHERE department_id IN (10, 20, 30)
-AND department_id &lt;&gt; 40;
+AND department_id <> 40;
 -- Q19
 SELECT *
 FROM employees
-WHERE salary &lt; (SELECT MIN(salary)
+WHERE salary > (SELECT MIN(salary)
 FROM employees
 WHERE department_id = 50);
 -- Q20
 SELECT *
 FROM employees
-WHERE salary &gt; (SELECT MAX(salary)
+WHERE salary < (SELECT MAX(salary)
 FROM employees
 WHERE department_id = 90);
