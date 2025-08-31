@@ -5,8 +5,8 @@ select count(*) as num_employees, manager_id from employees group by manager_id;
 select * from employees where salary = (select min(salary) from employees);
 select sysdate from dual;
 select to_char(sysdate, 'day, monthyyyy') as todays_date from dual;
-select * from EMPLOYEES where to_char(hire_date, 'day') like 'wed%';
-select MONTHS_BETWEEN('01-JAN-2025', '01-OCT-2024') as months from dual;
+select * from employees where to_char(hire_date, 'day') like 'wed%';
+select months_between('01-JAN-2025', '01-OCT-2024') as months from dual;
 select e.*,round(months_between(sysdate,hire_date)) as months_worked from EMPLOYEES e;
 select substr(first_name, 0, 3) from employees;
 

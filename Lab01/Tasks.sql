@@ -1,101 +1,23 @@
--- Q1
-SELECT *
-FROM employees
-WHERE department_id <> 100;
--- Q2
-SELECT *
-FROM employees
-WHERE salary IN (10000, 12000, 15000);
--- Q3
-SELECT first_name, salary
-FROM employees
-WHERE salary <= 25000;
--- Q4
-SELECT *
-FROM employees
-WHERE department_id <> 60;
--- Q5
-SELECT *
-FROM employees
-WHERE department_id BETWEEN 60 AND 80;
--- Q6
-SELECT *
-FROM departments;
--- Q7
-SELECT *
-FROM employees
-WHERE first_name = 'Steven';
--- Q8
-SELECT *
-FROM employees
-WHERE salary BETWEEN 15000 AND 25000
-AND department_id = 80;
--- Q9
-SELECT *
-FROM employees
-WHERE salary < ANY (SELECT salary
-FROM employees
-WHERE department_id = 100);
--- Q10
-SELECT *
-FROM employees e
-WHERE department_id IN (
-SELECT department_id
-FROM employees
-GROUP BY department_id
-HAVING COUNT(*) = 1
-);
--- Q11
-SELECT *
-FROM employees
-WHERE hire_date BETWEEN DATE '2005-01-01' AND DATE '2006-12-31';
--- Q12
-SELECT *
-FROM employees
-WHERE manager_id IS NULL;
--- Q13
-SELECT *
-FROM employees
-WHERE salary < ALL (SELECT salary
-FROM employees
-WHERE salary > 8000);
--- Q14
-SELECT *
-FROM employees
-WHERE salary > ANY (SELECT salary
-FROM employees
-WHERE department_id = 90);
--- Q15
-SELECT *
-FROM departments d
-WHERE EXISTS (SELECT 1
-FROM employees e
-WHERE e.department_id = d.department_id);
+-- In Lab
+select * from employees where department_id <> 100;
+select * from employees where salary in (10000, 12000, 15000);
+select first_name, salary from employees where salary <= 25000;
+select * from employees where department_id <> 60;
+select * from employees where department_id between 60 and 80;
+select * from departments;
+select * from employees where first_name = 'steven';
+select * from employees where salary between 15000 and 25000 and department_id = 80;
+select * from employees where salary < any (select salary from employees where department_id = 100);
+select * from employees e where department_id in (select department_id from employees group by department_id having count(*) = 1 );
 
--- Q16
-SELECT *
-FROM departments d
-WHERE NOT EXISTS (SELECT 1
-FROM employees e
-WHERE e.department_id = d.department_id);
--- Q17
-SELECT *
-FROM employees
-WHERE salary NOT BETWEEN 5000 AND 15000;
--- Q18
-SELECT *
-FROM employees
-WHERE department_id IN (10, 20, 30)
-AND department_id <> 40;
--- Q19
-SELECT *
-FROM employees
-WHERE salary > (SELECT MIN(salary)
-FROM employees
-WHERE department_id = 50);
--- Q20
-SELECT *
-FROM employees
-WHERE salary < (SELECT MAX(salary)
-FROM employees
-WHERE department_id = 90);
+-- Post Lab
+select * from employees where hire_date between date '2005-01-01' and date '2006-12-31';
+select * from employees where manager_id is null;
+select * from employees where salary < all (select salary from employees where salary > 8000);
+select * from employees where salary > any (select salary from employees where department_id = 90);
+select * from departments d where exists (select 1 from employees e where e.department_id = d.department_id);
+select * from departments d where not exists (select 1 from employees e where e.department_id = d.department_id);
+select * from employees where salary not between 5000 and 15000;
+select * from employees where department_id in (10, 20, 30) and department_id <> 40;
+select * from employees where salary > (select min(salary) from employees where department_id = 50);
+select * from employees where salary < (select max(salary) from employees where department_id = 90);
