@@ -8,4 +8,3 @@ create table employees(
     dept_id varchar(255)
 );
 
-select * from employees;
