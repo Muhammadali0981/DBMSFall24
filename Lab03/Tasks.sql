@@ -8,4 +8,4 @@ create table employees(
     dept_id varchar(255)
 );
 
-alter table employees 
+select * from employees;
