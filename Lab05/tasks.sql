@@ -68,6 +68,81 @@ select name, manager from EMPLOYEES;
 select * from employees where project = 0;
 select name, course from student;
 
+-- Q6
+create table customer (
+    customer_id int primary key,
+    customer_name varchar(100)
+);
+
+create table orders (
+    order_id int primary key,
+    customer_id int,
+    order_date date,
+    foreign key (customer_id) references customer(customer_id)
+);
+
+insert into customer values (1, 'Ahmed');
+insert into customer values (2, 'Ayesha');
+insert into customer values (3, 'Fatima');
+
+insert into orders values (101, 1, to_date('2025-09-01', 'YYYY-MM-DD'));
+insert into orders values (102, 2, to_date('2025-09-02', 'YYYY-MM-DD'));
+
+select c.customer_name, o.order_id, o.order_date
+from customer c
+left join orders o on c.customer_id = o.customer_id;
+
+-- Q7
+select d.dpt_name, e.emp_name
+from department d
+left join employee e on d.dpt_id = e.dpt_id;
+
+-- Q8
+create table teacher (
+    teacher_id int primary key,
+    teacher_name varchar(100)
+);
+
+create table subject (
+    subject_id int primary key,
+    subject_name varchar(100)
+);
+
+insert into teacher values (1, 'Dr. Khan');
+insert into teacher values (2, 'Prof. Malik');
+
+insert into subject values (1, 'Math');
+insert into subject values (2, 'Science');
+
+select t.teacher_name, s.subject_name
+from teacher t
+cross join subject s;
+
+-- Q9
+select d.dpt_name, count(e.emp_id) as total_employees
+from department d
+left join employee e ON d.dpt_id = e.dpt_id
+group by d.dpt_name;
+
+-- Q10
+alter table course add (teacher_id int, foreign key (teacher_id) references teacher(teacher_id));
+
+insert into student values (1, 'Sara');
+insert into student values (2, 'Zain');
+
+insert into teacher values (1, 'Dr. Tariq');
+insert into teacher values (2, 'Prof. Qureshi');
+
+insert into course values (1, 'Math', 1);
+insert into course values (2, 'Science', 2);
+
+update student set crs_id = 1 where student_id = 1;
+update student set crs_id = 2 where student_id = 2;
+
+select s.student_name, c.crs_name, t.teacher_name
+from student s
+inner join course c on s.crs_id = c.crs_id
+inner join teacher t on c.teacher_id = t.teacher_id;
 
 
 
