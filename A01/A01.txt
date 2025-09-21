@@ -1,0 +1,36 @@
+Question 1
+
+a) Problems with file-system data management:
+Data redundancy & inconsistency: same data stored in multiple files → inconsistent copies.
+Data isolation: data spread across files in different formats — hard to run cross-file queries.
+Lack of concurrency control: simultaneous access leads to lost updates or corruption.
+No recovery/backup mechanisms: failures may cause permanent data loss.
+Limited data integrity & security: no declarative constraints, limited access control.
+Program-data dependence: changing file structure requires rewriting application programs.
+
+b) Usage of Composite Primary Key (with example):
+A composite primary key is a primary key made of two (or more) attributes when no single attribute uniquely identifies a row.
+Example: Enrollments(StudentID, CourseID, Grade) with primary key (StudentID, CourseID). Each student can take many courses and each course can have many students, but the pair uniquely identifies an enrollment record.
+
+c) Operations performed by an application program when DBMS is used (typical):
+
+Connect/Authenticate to DBMS (open a session).
+Execute DML/DDL statements (SELECT, INSERT, UPDATE, DELETE, CREATE TABLE, etc.).
+Begin/Commit/Rollback transactions.
+Receive result sets and process/display results.
+Handle errors/exceptions returned by DBMS.
+
+d) Which independence is difficult to achieve in three-schema architecture and why (with example):
+Logical data independence is harder to achieve. Changing the conceptual schema (e.g., splitting a table or renaming columns) usually forces changes in external schemas and application programs.
+Example: Student(StudentID, Name, Course) split into Student(StudentID, Name) and Enrollment(StudentID, Course). Old queries like SELECT Name, Course FROM Student break and must be changed — external views/programs must be updated.
+
+e) “A key is a superkey but not vice versa.” Explain with example:
+
+Superkey: any attribute set that uniquely identifies rows (may contain extra attributes).
+Key (candidate key): a minimal superkey (no extra attributes).
+Example: For Students(StudentID, Name, Email):
+{StudentID, Name} is a superkey (unique) but not a key because StudentID alone suffices.
+
+{StudentID} is a key (candidate key).
+Thus every key is a superkey, but some superkeys are not keys (they contain unnecessary attributes).
+
