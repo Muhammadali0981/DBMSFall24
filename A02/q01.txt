@@ -1,1 +1,273 @@
+Question #1
+A. Primary Entities and Attributes
+FILM
 
+FilmID (PK)
+
+Title
+
+Budget
+
+ReleaseDate
+
+DirectorName
+
+ACTOR
+
+ActorID (PK)
+
+Name
+
+Phone
+
+PRODUCTION_COMPANY
+
+CompanyID (PK)
+
+Name
+
+B. Main Relationships and Cardinalities
+
+Casting
+
+Relationship between FILM and ACTOR
+
+Cardinality: M:N
+
+A film casts many actors, and an actor can appear in many films.
+
+Production (Directed By)
+
+Relationship between FILM and Director
+
+Cardinality: 1:1
+
+Each film has exactly one director (stored as an attribute).
+
+Funding
+
+Relationship between FILM and PRODUCTION_COMPANY
+
+Cardinality: M:N
+
+A film can be funded by multiple companies, and a company can fund many films.
+
+C. Associative Entity for Rule 3 (M:N Relationship)
+CASTING (Associative / Linking Entity)
+
+Attributes:
+
+FilmID (PK, FK → FILM)
+
+ActorID (PK, FK → ACTOR)
+
+CharacterName
+
+Primary Key:
+
+Composite Key: (FilmID, ActorID)
+
+Reason:
+The M:N relationship between Films and Actors cannot be implemented directly in a relational database. The associative entity resolves this and stores relationship-specific data (CharacterName).
+
+D. Why DirectorName Should NOT Be a Separate Entity
+
+The director has no independent attributes other than name.
+
+The director does not participate in any other relationships.
+
+Each film has exactly one director, and directors are not reused or queried independently.
+
+Creating a separate entity would add unnecessary complexity without adding normalization benefits.
+
+Question #2 — Airline Reservation System ER Design
+
+
+Primary Entities
+AIRLINE
+
+AirlineCode (PK)
+
+Name
+
+Country
+
+CITY
+
+CityID (PK)
+
+CityName
+
+Country
+
+BOOKING_OFFICE
+
+OfficeID (PK)
+
+CityID (FK → CITY)
+
+FLIGHT
+
+FlightNumber (PK)
+
+AirlineCode (FK → AIRLINE)
+
+BusinessClassIndicator
+
+SmokingAllowedIndicator
+
+BaseFlightPrice
+
+FLIGHT_AVAILABILITY
+
+FlightNumber (PK, FK → FLIGHT)
+
+DepartureDateTime (PK)
+
+TotalBusinessSeats
+
+BookedBusinessSeats
+
+TotalEconomySeats
+
+BookedEconomySeats
+
+CUSTOMER
+
+CustomerID (PK)
+
+FirstName
+
+LastName
+
+Email (UNIQUE)
+
+ADDRESS
+
+AddressID (PK)
+
+Street
+
+City
+
+ProvinceState
+
+PostalCode
+
+Country
+
+PHONE
+
+PhoneID (PK)
+
+CountryCode
+
+AreaCode
+
+LocalNumber
+
+FAX
+
+FaxID (PK)
+
+CountryCode
+
+AreaCode
+
+LocalNumber
+
+BOOKING
+
+BookingNumber (PK)
+
+BookingCity
+
+BookingDate
+
+FlightNumber (FK)
+
+DepartureDateTime
+
+ArrivalDateTime
+
+ClassIndicator
+
+StatusIndicator
+
+TotalPrice
+
+AmountPaid
+
+OutstandingBalance
+
+TicketFirstName
+
+TicketLastName
+
+CustomerID (FK → CUSTOMER)
+
+CURRENCY
+
+CurrencyCode (PK)
+
+CurrencyName
+
+EXCHANGE_RATE
+
+CurrencyCode (PK, FK → CURRENCY)
+
+RateDate (PK)
+
+ExchangeRate
+
+AIRPORT_TAX
+
+CityID (PK, FK → CITY)
+
+CurrencyCode (PK)
+
+TaxAmount
+
+Key Relationships & Cardinalities
+
+AIRLINE — operates — FLIGHT
+
+1 : M
+
+FLIGHT — has — FLIGHT_AVAILABILITY
+
+1 : M
+
+CITY — has — BOOKING_OFFICE
+
+1 : 1
+
+CUSTOMER — makes — BOOKING
+
+1 : M
+
+CUSTOMER — has — ADDRESS
+
+M : 1 (addresses can be shared)
+
+CUSTOMER — has — PHONE / FAX
+
+M : N (numbers can be shared)
+
+BOOKING — uses — EXCHANGE_RATE
+
+M : 1 (rate depends on booking date)
+
+Design Justifications (Important Points)
+
+Email is unique, so it uniquely identifies customers.
+
+Addresses, phones, and faxes are shared, so they must be separate entities.
+
+Flight availability depends on date + time, hence composite key.
+
+Exchange rates change daily, so date must be part of the key.
+
+Airport taxes stored in local currency, linked to city and currency.
+
+Booking stores price snapshot, so later exchange-rate changes don’t affect historical data.
